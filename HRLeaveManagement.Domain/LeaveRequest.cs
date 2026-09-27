@@ -1,4 +1,4 @@
-﻿using HRLeaveManagement.Domain.Common;
+﻿using ClassLibrary1HRLeaveManagement.Domain.Common;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ClassLibrary1HRLeaveManagement.Domain
@@ -6,7 +6,7 @@ namespace ClassLibrary1HRLeaveManagement.Domain
     public class LeaveRequest : BaseEntity
     {
 
-        public LeaveType? LeaveType { get; set; };
+        public LeaveType? LeaveType { get; set; }
 
         public int LeaveTypeId { get; set; }
         public DateTime StartDate { get; set; }
