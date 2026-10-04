@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace HRLeaveManagement.Application.Exceptions
 {
-    public class NotFoundException : Exception
+    public class BadRequestException : Exception
     {
-        public NotFoundException(string name,object key ):base($"{name} ({key}) was not found")
+        public BadRequestException(string message) : base(message)
         {
         }
     }
-
 }

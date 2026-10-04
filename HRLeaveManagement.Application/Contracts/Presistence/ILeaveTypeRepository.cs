@@ -4,6 +4,7 @@ namespace HRLeaveManagement.Application.Contracts.Presistence
 {
     public interface ILeaveTypeRepository : IGenericReposistory<LeaveType>
     {
+        Task<bool> IsLeaveTypeUnique(string name);
     }
 
 
