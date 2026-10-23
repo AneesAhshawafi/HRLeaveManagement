@@ -1,4 +1,6 @@
-﻿using HRLeaveManagement.Presistence.DatabaseContext;
+﻿using HRLeaveManagement.Application.Contracts.Presistence;
+using HRLeaveManagement.Presistence.DatabaseContext;
+using HRLeaveManagement.Presistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +18,11 @@ namespace HRLeaveManagement.Presistence
                 //with the connection string from the appsettings.json file
                 options.UseSqlServer(configuration.GetConnectionString("HRDatabaseConnectionString"));
             });
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
+            services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
+            services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
+
             return services;
         }
 
