@@ -6,6 +6,7 @@
     <Project Path="HRLeaveManagement.Domain/HRLeaveManagement.Domain.csproj" Id="04d37ca3-8e2f-4e67-b374-d2419f496abd" />
   </Folder>
   <Folder Name="/src/Infrastructure/">
+    <Project Path="HRLeaveManagement.Infrastructure/HRLeaveManagement.Infrastructure.csproj" Id="955b9eb9-7a73-46d4-a7b7-748921479fdf" />
     <Project Path="HRLeaveManagement.Presistence/HRLeaveManagement.Presistence.csproj" Id="a6a192f0-a26d-412f-9581-a65c562d0f5d" />
   </Folder>
   <Folder Name="/src/UI/" />

@@ -38,7 +38,12 @@ namespace HRLeaveManagement.Presistence.Repositories
 
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(q => q.Id == id);
+            var entity = await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(q => q.Id == id);
+            if(entity == null)
+            {
+                throw new Exception($"Entity of type {typeof(T).Name} with id {id} not found.");
+            }
+            return entity;
         }
 
         public async Task UpdateAsync(T entity)
