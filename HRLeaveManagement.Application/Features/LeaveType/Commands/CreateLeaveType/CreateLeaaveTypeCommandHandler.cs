@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HRLeaveManagement.Application.Contracts.Logging;
 using HRLeaveManagement.Application.Contracts.Presistence;
 using HRLeaveManagement.Application.Exceptions;
 using MediatR;
@@ -17,10 +18,12 @@ namespace HRLeaveManagement.Application.Features.LeaveType.Commands.CreateLeaveT
     {
         private readonly ILeaveTypeRepository _leaveTypeRepository;
         private readonly IMapper _mapper;
-        public CreateLeaveTypeCommandHandler(IMapper mapper, ILeaveTypeRepository leaveTypeRepository)
+        private readonly IAppLogger<CreateLeaveTypeCommandHandler> _logger;
+        public CreateLeaveTypeCommandHandler(IMapper mapper, ILeaveTypeRepository leaveTypeRepository,IAppLogger<CreateLeaveTypeCommandHandler> logger)
         {
             this._mapper = mapper;
             this._leaveTypeRepository = leaveTypeRepository;
+            this._logger = logger;
         }
 
 
@@ -31,6 +34,7 @@ namespace HRLeaveManagement.Application.Features.LeaveType.Commands.CreateLeaveT
             var validationResult = await validator.ValidateAsync(request);
             if (validationResult.Errors.Any())
             {
+                _logger.LogError("Validation errors in CreateLeaveTypeCommandHandler: {Errors}", validationResult.Errors);
                 throw new CustomValidationException("Invalid leave type data provided.",validationResult);
             }
 
