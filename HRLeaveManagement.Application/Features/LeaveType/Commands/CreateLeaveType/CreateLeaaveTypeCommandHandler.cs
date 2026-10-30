@@ -3,7 +3,6 @@ using HRLeaveManagement.Application.Contracts.Logging;
 using HRLeaveManagement.Application.Contracts.Presistence;
 using HRLeaveManagement.Application.Exceptions;
 using MediatR;
-using Microsoft.IdentityModel.Tokens.Experimental;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -34,8 +33,20 @@ namespace HRLeaveManagement.Application.Features.LeaveType.Commands.CreateLeaveT
             var validationResult = await validator.ValidateAsync(request);
             if (validationResult.Errors.Any())
             {
-                _logger.LogError("Validation errors in CreateLeaveTypeCommandHandler: {Errors}", validationResult.Errors);
-                throw new CustomValidationException("Invalid leave type data provided.",validationResult);
+                //var errorMessages = validationResult.Errors
+                //                    .Select(e => e.ErrorMessage)
+                //                    .ToList();
+                //var errorSummary = string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage));
+                var formattedErrors = string.Join("; ", validationResult.Errors
+                    .Select(e => $"{e.PropertyName}: {e.ErrorMessage}"));
+
+                _logger.LogError($"Validation errors in CreateLeaveTypeCommandHandler: {formattedErrors}", validationResult.Errors);
+
+                
+
+
+
+                throw new CustomValidationException($"Invalid leave type data provided. {formattedErrors}",validationResult);
             }
 
             //Convert to domain entity object
