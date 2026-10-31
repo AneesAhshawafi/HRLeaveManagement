@@ -3,13 +3,7 @@ using HRLeaveManagement.Application.Contracts.Logging;
 using HRLeaveManagement.Application.Contracts.Presistence;
 using HRLeaveManagement.Application.Exceptions;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace HRLeaveManagement.Application.Features.LeaveType.Commands.CreateLeaveType
 {
@@ -41,10 +35,6 @@ namespace HRLeaveManagement.Application.Features.LeaveType.Commands.CreateLeaveT
                     .Select(e => $"{e.PropertyName}: {e.ErrorMessage}"));
 
                 _logger.LogError($"Validation errors in CreateLeaveTypeCommandHandler: {formattedErrors}", validationResult.Errors);
-
-                
-
-
 
                 throw new CustomValidationException($"Invalid leave type data provided. {formattedErrors}",validationResult);
             }

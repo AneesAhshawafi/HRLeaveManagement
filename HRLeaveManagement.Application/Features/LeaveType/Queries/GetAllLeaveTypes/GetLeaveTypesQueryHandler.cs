@@ -31,8 +31,10 @@ namespace HRLeaveManagement.Application.Features.LeaveType.Queries.GetAllLeaveyp
             //Convert the data objects to DTO objects
             var data = _mapper.Map<List<LeaveTypeDto>>(leaveTypes);
 
-            //return List of DTO objects
+            //logging the information that the leave types were retrieved successfully
             _logger.LogInformation("LeaveTypes were retrieved successfully");
+
+            //return List of DTO objects
             return data;
         }
     }

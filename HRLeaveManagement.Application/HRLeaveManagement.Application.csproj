@@ -17,4 +17,9 @@
     <ProjectReference Include="..\HRLeaveManagement.Domain\HRLeaveManagement.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\LeaveAllocation\Commands\DeleteLeaveAllocation\" />
+    <Folder Include="Features\LeaveAllocation\Commands\UpdateLeaveAllocation\" />
+  </ItemGroup>
+
 </Project>
