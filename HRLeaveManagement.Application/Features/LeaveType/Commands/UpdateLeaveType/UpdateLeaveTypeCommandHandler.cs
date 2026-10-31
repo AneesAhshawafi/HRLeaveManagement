@@ -32,8 +32,13 @@ namespace HRLeaveManagement.Application.Features.LeaveType.Commands.UpdateLeaveT
                 _logger.LogWarning("Validation errors in update request for {0} - {1}", nameof(LeaveType), request.Id);
                 throw new CustomValidationException("Invalid Leave Type", validationResult);
             }
+            //get the original leaveType object
+            var leaveTypeToUpdate = await _leaveTypeRepository.GetByIdAsync(request.Id);
+
             // Convert to domain entity object.
-            var leaveTypeToUpdate = _mapper.Map<ClassLibrary1HRLeaveManagement.Domain.LeaveType>(request);
+            //var leaveTypeToUpdate = _mapper.Map<ClassLibrary1HRLeaveManagement.Domain.LeaveType>(request);
+            _mapper.Map(request, leaveTypeToUpdate);
+
             // Update the data in the database.
             await _leaveTypeRepository.UpdateAsync(leaveTypeToUpdate);
 

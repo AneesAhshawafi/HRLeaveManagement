@@ -18,7 +18,7 @@ namespace HRLeaveManagement.Application.MappingProfiles
             CreateMap<LeaveAllocationDto, LeaveAllocation>().ReverseMap(); // two directions from LeaveAllocationDto to LeaveAllocation and vice versa
             CreateMap<LeaveAllocation, LeaveAllocationDetailsDto>(); // one direction from LeaveAllocation to LeaveAllocationDetailsDto
             CreateMap<CreateLeaveAllocationCommand, LeaveAllocation>();
-            //CreateMap<UpdateLeaveAllocationCommand, LeaveAllocation>();
+            CreateMap<UpdateLeaveAllocationCommand, LeaveAllocation>();
         }
 
         protected internal LeaveAllocationProfile(string profileName) : base(profileName)

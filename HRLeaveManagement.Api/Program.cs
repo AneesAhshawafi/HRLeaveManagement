@@ -1,6 +1,7 @@
 using HRLeaveManagement.Application;
 using HRLeaveManagement.Infrastructure;
 using HRLeaveManagement.Presistence;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,13 @@ builder.Services.AddCors(
         .AllowAnyMethod());
     }
     );
+
+// Register Serilog
+builder.Host.UseSerilog((context, loggerConfig) => loggerConfig
+    .WriteTo.Console()
+    .WriteTo.File(
+        path: "Logs/hr_log-.txt",
+        rollingInterval: RollingInterval.Day));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

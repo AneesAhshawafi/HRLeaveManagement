@@ -12,6 +12,7 @@ namespace HRLeaveManagement.Application.Contracts.Presistence
     Task AddAllocations(List<LeaveAllocation> allocations);
     Task<LeaveAllocation> GetUserAllocation(string userId, int leaveTypeId);
 
+    Task<bool> IsLeaveAllocationExist(int id);
 
 
     }

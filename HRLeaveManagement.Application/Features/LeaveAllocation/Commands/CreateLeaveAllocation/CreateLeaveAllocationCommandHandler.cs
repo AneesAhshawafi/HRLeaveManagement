@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HRLeaveManagement.Application.Features.LeaveAllocation.Commands.CreateLeaveAllocation
 {
-    public class CreateLeaveAllocationCommandHandler : IRequestHandler<CreateLeaveAllocationCommand, Unit>
+    public class CreateLeaveAllocationCommandHandler : IRequestHandler<CreateLeaveAllocationCommand, int>
     {
         private readonly IMapper _mapper;
         private readonly ILeaveAllocationRepository _leaveAllocationRepository;
@@ -25,7 +25,7 @@ namespace HRLeaveManagement.Application.Features.LeaveAllocation.Commands.Create
             _logger = logger;
         }
 
-        public async Task<Unit> Handle(CreateLeaveAllocationCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateLeaveAllocationCommand request, CancellationToken cancellationToken)
         {
             //Validate data and getting the validation result
             var validator = new CreateLeaveAllocationCommandValidator(_leaveTypeRepository);
@@ -48,14 +48,18 @@ namespace HRLeaveManagement.Application.Features.LeaveAllocation.Commands.Create
             //Get the leaveType
             var leaveType = await _leaveTypeRepository.GetByIdAsync(request.LeaveTypeId);
 
-            //assign leaveTypeId and leaveType to the leaveAllocationToCreate
+            //assign leaveTypeId to the leaveAllocationToCreate
             leaveALlocationToCreate.LeaveTypeId = request.LeaveTypeId;
-            leaveALlocationToCreate.LeaveType = leaveType;
+            //leaveALlocationToCreate.LeaveType = leaveType;
 
             //Create in the database
             await _leaveAllocationRepository.CreateAsync(leaveALlocationToCreate);
+
+            //logging the successful creation of the leave allocation
+            _logger.LogInformation($"Leave allocation has been created successfully with Id {leaveALlocationToCreate.Id}.");
+
             //return the ceated leaveAllocation id 
-            return Unit.Value;
+            return leaveALlocationToCreate.Id;
         }
     }
 }

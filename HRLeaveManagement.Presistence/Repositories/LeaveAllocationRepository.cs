@@ -72,5 +72,11 @@ namespace HRLeaveManagement.Presistence.Repositories
             }
             return leaveAllocation;
         }
+
+        public async Task<bool> IsLeaveAllocationExist(int id)
+        {
+            return await _context.leaveAllocations
+                .AnyAsync(q => q.Id == id);
+        }
     }
 }
