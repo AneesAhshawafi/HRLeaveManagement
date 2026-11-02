@@ -15,8 +15,6 @@ namespace ClassLibrary1HRLeaveManagement.Domain
         public string RequestComments { get; set; } = String.Empty;
         public bool? Approved { get; set; }
         public bool Cancelled { get; set; }
-
-
         public string RequestingEmployeeId { get; set; } = String.Empty;
     }
 }

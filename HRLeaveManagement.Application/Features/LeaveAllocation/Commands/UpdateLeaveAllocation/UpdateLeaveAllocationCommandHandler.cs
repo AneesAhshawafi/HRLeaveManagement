@@ -27,6 +27,16 @@ namespace HRLeaveManagement.Application.Features.LeaveAllocation.Commands.Update
 
         public async Task<Unit> Handle(UpdateLeaveAllocationCommand request, CancellationToken cancellationToken)
         {
+            //get the original leave allocation from the database
+            var leaveAllocationToUpdate = await _leaveAllocationRepository.GetByIdAsync(request.Id);
+
+            if(leaveAllocationToUpdate == null)
+            {
+                //logging the error for leave allocation not found
+                _logger.LogError($"Leave allocation with ID {request.Id} not found.");
+                //throwing a not found exception if the leave allocation does not exist
+                throw new NotFoundException(nameof(ClassLibrary1HRLeaveManagement.Domain.LeaveAllocation), request.Id);
+            }
             //validate data
             var validator = new UpdateLeaveAllocationCommandValidator(_leaveTypeRepository, _leaveAllocationRepository);
             var validationResult = validator.Validate(request);
@@ -42,11 +52,10 @@ namespace HRLeaveManagement.Application.Features.LeaveAllocation.Commands.Update
                 _logger.LogError($"Validation errors occurred while updating leave allocation: {formattedErrors}");
 
                 //throwing the validation exception with the formatted errors
-                throw new CustomValidationException("Invalid leave allocation data.", validationResult);
+                throw new BadRequestException("Invalid leave allocation data.", validationResult);
             }
 
-            //get the original leave allocation from the database
-            var leaveAllocationToUpdate =await _leaveAllocationRepository.GetByIdAsync(request.Id);
+            
 
             //Convert the UpdateLeaveAllocationCommand Object to Domain object
             //var leaveAllocationToUpdate = _mapper.Map<ClassLibrary1HRLeaveManagement.Domain.LeaveAllocation>(request);
@@ -63,6 +72,6 @@ namespace HRLeaveManagement.Application.Features.LeaveAllocation.Commands.Update
 
 
         }
-    {
+    
     }
 }

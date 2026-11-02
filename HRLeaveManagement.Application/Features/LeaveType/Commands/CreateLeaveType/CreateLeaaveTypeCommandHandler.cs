@@ -36,7 +36,7 @@ namespace HRLeaveManagement.Application.Features.LeaveType.Commands.CreateLeaveT
 
                 _logger.LogError($"Validation errors in CreateLeaveTypeCommandHandler: {formattedErrors}", validationResult.Errors);
 
-                throw new CustomValidationException($"Invalid leave type data provided. {formattedErrors}",validationResult);
+                throw new BadRequestException($"Invalid leave type data provided. {formattedErrors}", validationResult);
             }
 
             //Convert to domain entity object

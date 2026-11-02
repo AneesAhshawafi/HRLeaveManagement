@@ -24,6 +24,15 @@ namespace HRLeaveManagement.Application.Features.LeaveType.Commands.UpdateLeaveT
         }
         public async Task<Unit> Handle(UpdateLeaveTypeCommand request, CancellationToken cancellationToken)
         {
+            //get the original leaveType object
+            var leaveTypeToUpdate = await _leaveTypeRepository.GetByIdAsync(request.Id);
+
+            if(leaveTypeToUpdate == null)
+            {
+                _logger.LogError($"Leave type with ID {request.Id} not found.");
+                throw new NotFoundException(nameof(ClassLibrary1HRLeaveManagement.Domain.LeaveType), request.Id);
+            }
+
             // Validate icoming data.
             var validator = new UpdateLeaveTypeCommandValidator(_leaveTypeRepository);
             var validationResult = await validator.ValidateAsync(request);
@@ -32,8 +41,7 @@ namespace HRLeaveManagement.Application.Features.LeaveType.Commands.UpdateLeaveT
                 _logger.LogWarning("Validation errors in update request for {0} - {1}", nameof(LeaveType), request.Id);
                 throw new CustomValidationException("Invalid Leave Type", validationResult);
             }
-            //get the original leaveType object
-            var leaveTypeToUpdate = await _leaveTypeRepository.GetByIdAsync(request.Id);
+          
 
             // Convert to domain entity object.
             //var leaveTypeToUpdate = _mapper.Map<ClassLibrary1HRLeaveManagement.Domain.LeaveType>(request);

@@ -40,7 +40,7 @@ namespace HRLeaveManagement.Application.Features.LeaveAllocation.Commands.Create
                 //logging the validation errors
                 _logger.LogError($"Validation errors occurred while creating leave allocation: {formattedErrors}");
                 //throwing the validation exception with the formatted errors
-                throw new CustomValidationException("Invalid leave allocation data.", validationResult);
+                throw new BadRequestException("Invalid leave allocation data.", validationResult);
             }
             //Convert the CreateLeaveALlocationCommand Object to Domain object
             var leaveALlocationToCreate = _mapper.Map<ClassLibrary1HRLeaveManagement.Domain.LeaveAllocation>(request);
