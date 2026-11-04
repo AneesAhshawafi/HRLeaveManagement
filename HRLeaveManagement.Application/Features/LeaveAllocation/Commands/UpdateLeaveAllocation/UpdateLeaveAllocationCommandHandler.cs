@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using HRLeaveManagement.Application.Contracts.Logging;
 using HRLeaveManagement.Application.Contracts.Presistence;
 using HRLeaveManagement.Application.Exceptions;
@@ -39,7 +39,7 @@ namespace HRLeaveManagement.Application.Features.LeaveAllocation.Commands.Update
             }
             //validate data
             var validator = new UpdateLeaveAllocationCommandValidator(_leaveTypeRepository, _leaveAllocationRepository);
-            var validationResult = validator.Validate(request);
+            var validationResult = await validator.ValidateAsync(request);
 
             //check if the validation result has any errors
             if(validationResult.Errors.Any())

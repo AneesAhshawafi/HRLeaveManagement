@@ -29,9 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\LeaveTypesTest\" />
     <Folder Include="Features\LeaveAllocationsTest\" />
     <Folder Include="Features\LeaveRequestsTest\" />
+    <Folder Include="Features\LeaveTypesTest\Commands\" />
+    <Folder Include="Docs\" />
   </ItemGroup>
 
 </Project>

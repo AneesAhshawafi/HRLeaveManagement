@@ -1,4 +1,4 @@
-﻿using ClassLibrary1HRLeaveManagement.Domain;
+using ClassLibrary1HRLeaveManagement.Domain;
 using HRLeaveManagement.Application.Contracts.Presistence;
 using HRLeaveManagement.Application.Exceptions;
 using HRLeaveManagement.Presistence.DatabaseContext;
@@ -20,7 +20,7 @@ namespace HRLeaveManagement.Presistence.Repositories
         public async Task AddAllocations(List<LeaveAllocation> allocations)
         {
             await _context.leaveAllocations.AddRangeAsync(allocations);
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public async Task<bool> AllocationExists(string userId, int leaveTypeId, int period)
