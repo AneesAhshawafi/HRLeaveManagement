@@ -11,7 +11,9 @@
     <Project Path="HRLeaveManagement.Infrastructure/HRLeaveManagement.Infrastructure.csproj" Id="955b9eb9-7a73-46d4-a7b7-748921479fdf" />
     <Project Path="HRLeaveManagement.Presistence/HRLeaveManagement.Presistence.csproj" Id="a6a192f0-a26d-412f-9581-a65c562d0f5d" />
   </Folder>
-  <Folder Name="/src/UI/" />
+  <Folder Name="/src/UI/">
+    <Project Path="HRLeaveManagement.BlazorUI/HRLeaveManagement.BlazorUI.csproj" Id="0c70ec42-2303-47bd-91c4-aa3080c31411" />
+  </Folder>
   <Folder Name="/test/">
     <Project Path="HRLeaveManagement.Application.UnitTests/HRLeaveManagement.Application.UnitTests.csproj" Id="55640214-6357-42bd-827c-e79e18f855b6" />
     <Project Path="HRLeaveManagement.Presistence.IntegrationTests/HRLeaveManagement.Presistence.IntegrationTests.csproj" Id="ee2198fe-1a25-458a-8376-b164a9888a3c" />
