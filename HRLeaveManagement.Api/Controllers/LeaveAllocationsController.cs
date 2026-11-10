@@ -1,4 +1,4 @@
-﻿using HRLeaveManagement.Application.Features.LeaveAllocation.Commands.CreateLeaveAllocation;
+using HRLeaveManagement.Application.Features.LeaveAllocation.Commands.CreateLeaveAllocation;
 using HRLeaveManagement.Application.Features.LeaveAllocation.Commands.DeleteLeaveAllocation;
 using HRLeaveManagement.Application.Features.LeaveAllocation.Commands.UpdateLeaveAllocation;
 using HRLeaveManagement.Application.Features.LeaveAllocation.Queries.GetAllLeaveAllocations;
@@ -30,10 +30,11 @@ namespace HRLeaveManagement.Api.Controllers
 
         // GET api/<LeaveAllocationsController>/5
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(LeaveAllocationDetailsDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<LeaveAllocationDetailsDto>> Get(int id)
         {
-            var leaveAllocation = await _mediator.Send(new GetLeaveAllocationDetailsQuery{ Id = id});
+            var leaveAllocation = await _mediator.Send(new GetLeaveAllocationDetailsQuery { Id = id });
 
             return Ok(leaveAllocation);
         }
@@ -56,7 +57,7 @@ namespace HRLeaveManagement.Api.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Put(UpdateLeaveAllocationCommand leaveAllocation)
         {
-             await _mediator.Send(leaveAllocation);
+            await _mediator.Send(leaveAllocation);
             return NoContent();
         }
 

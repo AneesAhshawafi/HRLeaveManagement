@@ -1,4 +1,5 @@
-﻿using HRLeaveManagement.Application.Features.LeaveType.Commands.CreateLeaveType;
+﻿using HRLeaveManagement.Application.Features.LeaveAllocation.Queries.GetLeaveLeaveAllocationDetails;
+using HRLeaveManagement.Application.Features.LeaveType.Commands.CreateLeaveType;
 using HRLeaveManagement.Application.Features.LeaveType.Commands.DeleteLeaveType;
 using HRLeaveManagement.Application.Features.LeaveType.Commands.UpdateLeaveType;
 using HRLeaveManagement.Application.Features.LeaveType.Queries.GetAllLeaveypes;
@@ -33,6 +34,7 @@ namespace HRLeaveManagement.Api.Controllers
         // GET api/<LeaveTypesController>/5
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(LeaveTypeDetailsDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<LeaveTypeDetailsDto>> Get(int id)
         {
             var leaveType = await _mediator.Send(new GetLeaveTypeDetailsQuery(id));

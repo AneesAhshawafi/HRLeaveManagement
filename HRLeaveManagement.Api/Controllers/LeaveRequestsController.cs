@@ -5,6 +5,7 @@ using HR.LeaveManagement.Application.Features.LeaveRequests.Requests.Commands;
 using HRLeaveManagement.Application.Features.LeaveRequest.Commands.CancelLeaveRequest;
 using HRLeaveManagement.Application.Features.LeaveRequest.Queries.GetAllLeaveRequests;
 using HRLeaveManagement.Application.Features.LeaveRequest.Queries.GetLeaveRequestDetails;
+using HRLeaveManagement.Application.Features.LeaveType.Queries.GetLeaveTypeDetails;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,8 @@ public class LeaveRequestsController : ControllerBase
 
     // GET api/<LeaveRequestsController>/5
     [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(LeaveRequestDetailsDto), StatusCodes.Status200OK)]
     public async Task<ActionResult<LeaveRequestDetailsDto>> Get(int id)
     {
         var leaveRequest = await _mediator.Send(new GetLeaveRequestDetailsQuery { Id = id });
