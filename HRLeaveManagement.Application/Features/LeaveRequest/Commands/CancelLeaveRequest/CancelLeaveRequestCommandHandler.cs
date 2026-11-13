@@ -3,6 +3,7 @@ using HRLeaveManagement.Application.Contracts.Logging;
 using HRLeaveManagement.Application.Contracts.Presistence;
 using HRLeaveManagement.Application.Exceptions;
 using HRLeaveManagement.Application.Models;
+using HRLeaveManagement.Application.Models.Email;
 using MediatR;
 using System;
 using System.Collections.Generic;

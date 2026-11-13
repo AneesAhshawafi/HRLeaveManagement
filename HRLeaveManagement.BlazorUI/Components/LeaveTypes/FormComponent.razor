@@ -1,0 +1,48 @@
+<EditForm Model="@LeaveType" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <fieldset disabled="@Disabled">
+        <legend class="visually-hidden">Leave Type Information</legend>
+
+        <div class="mb-3">
+            <label for="leave-type-name" class="form-label">Name <span aria-hidden="true">*</span></label>
+            <InputText id="leave-type-name" class="form-control" aria-required="true" @bind-Value="LeaveType.Name" />
+            <ValidationMessage For="@(() => LeaveType.Name)" />
+        </div>
+
+        <div class="mb-3">
+            <label for="leave-type-default-days" class="form-label">Default Number of Days <span aria-hidden="true">*</span></label>
+            <InputNumber id="leave-type-default-days" class="form-control" aria-required="true" @bind-Value="LeaveType.DefaultDays" />
+            <ValidationMessage For="@(() => LeaveType.DefaultDays)" />
+        </div>
+
+        @if (Disabled)
+        {
+            @if (LeaveType.DateCreated.HasValue)
+            {
+                <div class="mb-3">
+                    <label for="leave-type-date-created" class="form-label">Date Created</label>
+                    <input id="leave-type-date-created" type="text" class="form-control" value="@LeaveType.DateCreated.Value.ToString("g")" readonly />
+                </div>
+            }
+            @if (LeaveType.DateModified.HasValue)
+            {
+                <div class="mb-3">
+                    <label for="leave-type-date-modified" class="form-label">Date Modified</label>
+                    <input id="leave-type-date-modified" type="text" class="form-control" value="@LeaveType.DateModified.Value.ToString("g")" readonly />
+                </div>
+            }
+        }
+    </fieldset>
+
+    <div class="d-flex gap-2">
+        @if (!Disabled)
+        {
+            <button type="submit" class="btn btn-success" disabled="@IsSubmitting">
+                @(IsSubmitting ? "Saving..." : ButtonText)
+            </button>
+        }
+        <a href="/leave-types/" class="btn btn-outline-secondary">Back to List</a>
+    </div>
+</EditForm>

@@ -1,0 +1,36 @@
+@page "/leaveTypes/edit/{id:int}"
+@using HRLeaveManagement.BlazorUI.Components.LeaveTypes
+
+<PageTitle>Edit Leave Type</PageTitle>
+
+<h3>Edit Leave Type</h3>
+
+@if (!string.IsNullOrEmpty(Message))
+{
+    <div class="alert alert-danger" role="alert" aria-live="polite">
+        <p class="mb-0">@Message</p>
+        @if (!string.IsNullOrEmpty(ValidationErrors))
+        {
+            <p class="mb-0 mt-1 small">@ValidationErrors</p>
+        }
+    </div>
+}
+
+@if (LeaveType is null)
+{
+    @if (string.IsNullOrEmpty(Message))
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <a href="/leave-types/" class="btn btn-outline-secondary">Back to List</a>
+    }
+}
+else
+{
+    <FormComponent ButtonText="Update Leave Type"
+                   LeaveType="LeaveType"
+                   OnValidSubmit="EditLeaveType"
+                   IsSubmitting="IsSubmitting" />
+}

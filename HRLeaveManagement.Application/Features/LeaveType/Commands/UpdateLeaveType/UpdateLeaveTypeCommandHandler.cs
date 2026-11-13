@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using HRLeaveManagement.Application.Contracts.Logging;
 using HRLeaveManagement.Application.Contracts.Presistence;
 using HRLeaveManagement.Application.Exceptions;

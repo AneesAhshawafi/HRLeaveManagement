@@ -4,6 +4,7 @@ using HRLeaveManagement.Application.Contracts.Logging;
 using HRLeaveManagement.Application.Contracts.Presistence;
 using HRLeaveManagement.Application.Exceptions;
 using HRLeaveManagement.Application.Models;
+using HRLeaveManagement.Application.Models.Email;
 using MediatR;
 
 namespace HR.LeaveManagement.Application.Features.LeaveRequest.Commands.UpdateLeaveRequest;

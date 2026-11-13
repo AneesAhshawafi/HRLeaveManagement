@@ -1,0 +1,22 @@
+@page "/leaveTypes/create"
+@using HRLeaveManagement.BlazorUI.Components.LeaveTypes
+
+<PageTitle>Create Leave Type</PageTitle>
+
+<h3>Create Leave Type</h3>
+
+@if (!string.IsNullOrEmpty(Message))
+{
+    <div class="alert alert-danger" role="alert" aria-live="polite">
+        <p class="mb-0">@Message</p>
+        @if (!string.IsNullOrEmpty(ValidationErrors))
+        {
+            <p class="mb-0 mt-1 small">@ValidationErrors</p>
+        }
+    </div>
+}
+
+<FormComponent ButtonText="Create Leave Type"
+               LeaveType="LeaveType"
+               OnValidSubmit="CreateLeaveType"
+               IsSubmitting="IsSubmitting" />

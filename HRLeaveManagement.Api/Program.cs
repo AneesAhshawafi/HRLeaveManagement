@@ -1,5 +1,6 @@
 using HR.LeaveManagement.Api.Middleware;
 using HRLeaveManagement.Application;
+using HRLeaveManagement.Identity;
 using HRLeaveManagement.Infrastructure;
 using HRLeaveManagement.Presistence;
 using Serilog;
@@ -11,6 +12,7 @@ builder.Services.AddApplicationServices();
 var configuration = builder.Configuration;
 builder.Services.AddPersistenceServices(configuration);
 builder.Services.AddInfrastructureServices(configuration);
+builder.Services.AddIdentityServices(configuration);
 
 
 builder.Services.AddControllers();
@@ -52,6 +54,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("all");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

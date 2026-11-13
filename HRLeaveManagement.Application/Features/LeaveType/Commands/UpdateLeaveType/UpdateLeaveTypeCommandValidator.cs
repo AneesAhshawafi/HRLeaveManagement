@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using HRLeaveManagement.Application.Contracts.Presistence;
 using HRLeaveManagement.Application.Features.LeaveType.Commands.CreateLeaveType;
 using System;
