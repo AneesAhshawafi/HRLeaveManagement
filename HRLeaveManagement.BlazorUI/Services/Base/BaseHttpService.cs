@@ -1,13 +1,18 @@
-﻿namespace HRLeaveManagement.BlazorUI.Services.Base
+﻿using Microsoft.JSInterop;
+using System.Net.Http.Headers;
+
+namespace HRLeaveManagement.BlazorUI.Services.Base
 {
     public class BaseHttpService
     {
         protected IClient _client;
-        public BaseHttpService(IClient client)
+        protected readonly ILocalStorageService _localSrorageService;
+        public BaseHttpService(IClient client, ILocalStorageService localStorageService)
         {
             this._client = client;
-
+            this._localSrorageService = localStorageService;
         }
+
         protected Response<Guid> ConvertApiExceptions<Guid>(ApiException apiException)
         {
             switch (apiException.StatusCode)
@@ -31,6 +36,15 @@
                         Message = "Something went wrong, please try again.",
                         Success = false
                     };
+            }
+        }
+
+        protected async Task AddBearerToken()
+        {
+            var token = await _localSrorageService.GetItemAsync("token");
+            if(token != null)
+            {
+                _client.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
         }
     }

@@ -2,13 +2,14 @@
 using HRLeaveManagement.BlazorUI.Contracts;
 using HRLeaveManagement.BlazorUI.Models.LeaveTypes;
 using HRLeaveManagement.BlazorUI.Services.Base;
+using Microsoft.JSInterop;
 
 namespace HRLeaveManagement.BlazorUI.Services
 {
     public class LeaveTypeService : BaseHttpService, ILeaveTypeService
     {
         private readonly IMapper _mapper;
-        public LeaveTypeService(IClient client, IMapper mapper) : base(client)
+        public LeaveTypeService(IClient client,ILocalStorageService localStorageService, IMapper mapper) : base(client, localStorageService)
         {
             _mapper = mapper;
         }
@@ -17,6 +18,7 @@ namespace HRLeaveManagement.BlazorUI.Services
         {
             try {
                 var createLeaveTypeCommand = _mapper.Map<CreateLeaveTypeCommand>(leaveType);
+                await AddBearerToken();
                 await _client.LeaveTypesPOSTAsync(createLeaveTypeCommand);
                 return new Response<Guid>() { Success = true, Message = "Creation Successful" };
 
@@ -31,6 +33,7 @@ namespace HRLeaveManagement.BlazorUI.Services
         {
             try
             {
+                await AddBearerToken();
                 await _client.LeaveTypesDELETEAsync(id);
                 return new Response<Guid>() { Success = true, Message = "Deletion Successful" };
 
@@ -43,6 +46,7 @@ namespace HRLeaveManagement.BlazorUI.Services
 
         public async Task<LeaveTypeVM> GetLeaveTypeDetails(int id)
         {
+            await AddBearerToken();
             var leaveType = await _client.LeaveTypesGETAsync(id);
             var leaveTypeVM = _mapper.Map<LeaveTypeVM>(leaveType);
             return leaveTypeVM;
@@ -51,6 +55,7 @@ namespace HRLeaveManagement.BlazorUI.Services
 
         public async Task<List<LeaveTypeVM>> GetLeaveTypes()
         {
+            await AddBearerToken();
             var leaveTypes = await _client.LeaveTypesAllAsync();
             var leaveTypeVMs = _mapper.Map<List<LeaveTypeVM>>(leaveTypes);
             return leaveTypeVMs;
@@ -62,7 +67,8 @@ namespace HRLeaveManagement.BlazorUI.Services
         {
             try
             {
-                var     updateLeaveTypeCommand = _mapper.Map<UpdateLeaveTypeCommand>(leaveType);
+                var updateLeaveTypeCommand = _mapper.Map<UpdateLeaveTypeCommand>(leaveType);
+                await AddBearerToken();
                 await _client.LeaveTypesPUTAsync(id.ToString(), updateLeaveTypeCommand);
                 return new Response<Guid>() { Success = true, Message = "Update Successful" };
 

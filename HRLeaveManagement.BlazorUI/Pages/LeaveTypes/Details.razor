@@ -1,5 +1,6 @@
-@page "/leaveTypes/details/{id:int}"
+@page "/leave-types/details/{id:int}"
 @using HRLeaveManagement.BlazorUI.Components.LeaveTypes
+@attribute [Authorize]
 
 <PageTitle>Leave Type Details</PageTitle>
 
@@ -26,7 +27,9 @@
 else
 {
     <FormComponent LeaveType="LeaveType" Disabled="true" />
-    <div class="mt-2">
-        <a href="/leaveTypes/edit/@id" class="btn btn-warning">Edit</a>
-    </div>
+    <AuthorizeView Roles="Administrator">
+        <div class="mt-2">
+            <a href="/leaveTypes/edit/@id" class="btn btn-warning">Edit</a>
+        </div>
+    </AuthorizeView>
 }

@@ -1,5 +1,6 @@
-@page "/leaveTypes/edit/{id:int}"
+@page "/leave-types/edit/{id:int}"
 @using HRLeaveManagement.BlazorUI.Components.LeaveTypes
+@attribute [Authorize(Roles = "Administrator")]
 
 <PageTitle>Edit Leave Type</PageTitle>
 

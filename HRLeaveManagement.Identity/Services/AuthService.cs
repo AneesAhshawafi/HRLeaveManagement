@@ -21,8 +21,8 @@ namespace HRLeaveManagement.Identity.Services
         private readonly JwtSettings _jwtSettings;
         private readonly SignInManager<ApplicationUser> _signInManager;
         public AuthService(
-            UserManager<ApplicationUser> userManager, 
-            IOptions<JwtSettings> jwtOptions, 
+            UserManager<ApplicationUser> userManager,
+            IOptions<JwtSettings> jwtOptions,
             SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
@@ -32,7 +32,7 @@ namespace HRLeaveManagement.Identity.Services
 
         public async Task<AuthResponse> Login(AuthRequest request)
         {
-            var user =await _userManager.FindByEmailAsync(request.Email);
+            var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null)
             {
                 throw new NotFoundException($"User with {request.Email} not found.", request.Email);
@@ -56,17 +56,17 @@ namespace HRLeaveManagement.Identity.Services
 
         private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
         {
-            var userClaims = await _userManager.GetClaimsAsync(user); 
+            var userClaims = await _userManager.GetClaimsAsync(user);
             var roles = await _userManager.GetRolesAsync(user);
             // Convert every role name into a Claim object of type "ClaimTypes.Role"
-            var roleClaims = roles.Select(q => new Claim(ClaimTypes.Role,q)).ToList();
+            var roleClaims = roles.Select(q => new Claim(ClaimTypes.Role, q)).ToList();
 
             // Generate and merge the Claims list.
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName!),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email!),
                 new Claim("uid", user.Id)
             }
             .Union(userClaims)
@@ -76,18 +76,18 @@ namespace HRLeaveManagement.Identity.Services
             var signinCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 
             var jwtSecurityToken = new JwtSecurityToken(
-                issuer:_jwtSettings.Issur,
+                issuer: _jwtSettings.Issuer,
                 audience: _jwtSettings.Audience,
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
-                signingCredentials:signinCredentials
+                signingCredentials: signinCredentials
                 );
             return jwtSecurityToken;
         }
 
         public async Task<RegistrationResponse> Register(RegistrationRequest request)
         {
-            var user = new ApplicationUser 
+            var user = new ApplicationUser
             {
                 Email = request.Email,
                 FirstName = request.FirstName,

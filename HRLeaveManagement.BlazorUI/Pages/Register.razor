@@ -1,0 +1,54 @@
+﻿@page "/register"
+<h3>Register</h3>
+@if (string.IsNullOrEmpty(Message) == false)
+{
+    <div class="alert alert-danger">
+            @Message
+    </div>
+}
+<br />
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm Model="@Model" OnValidSubmit="HandleRegister">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <label class="control-label">First Name</label>
+                <InputText id="firstName" class="form-control" @bind-Value="@Model.FirstName"></InputText>
+                <ValidationMessage For="@(() => Model.FirstName)" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Last Name</label>
+                <InputText id="lastName" class="form-control" @bind-Value="@Model.LastName"></InputText>
+                <ValidationMessage For="@(() => Model.LastName)" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">UserName</label>
+                <InputText id="userName" class="form-control" @bind-Value="@Model.UserName"></InputText>
+                <ValidationMessage For="@(() => Model.UserName)" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Email</label>
+                <InputText id="userName" class="form-control" @bind-Value="@Model.Email"></InputText>
+                <ValidationMessage For="@(() => Model.Email)" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Password</label>
+                <InputText type="password" id="password" class="form-control" @bind-Value="@Model.Password"></InputText>
+                <ValidationMessage For="@(() => Model.Password)" />
+            </div>
+
+            <div class="form-group m-3">
+                <input type="submit" value="Register" class="btn btn-primary" />
+            </div>
+        </EditForm>
+
+    </div>
+
+</div>
+<button class="btn btn-secondary" @onclick="NavigateToLogin">Login</button>

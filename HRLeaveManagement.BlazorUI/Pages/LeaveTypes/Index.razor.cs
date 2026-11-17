@@ -17,7 +17,7 @@ namespace HRLeaveManagement.BlazorUI.Pages.LeaveTypes
         public bool Success { get; private set; }
         protected void CreateLeaveType()
         {
-            NavigationManager.NavigateTo("/leaveTypes/create");
+            NavigationManager.NavigateTo("/leave-types/create");
         }
         protected async Task AllocateLeaveType(int id)
         {
@@ -28,12 +28,12 @@ namespace HRLeaveManagement.BlazorUI.Pages.LeaveTypes
 
         protected void DetailsLeaveType(object id)
         {
-            NavigationManager.NavigateTo($"/leaveTypes/details/{id}");
+            NavigationManager.NavigateTo($"/leave-types/details/{id}");
         }
 
         protected void EditLeaveType(object id)
         {
-            NavigationManager.NavigateTo($"/leaveTypes/edit/{id}");
+            NavigationManager.NavigateTo($"/leave-types/edit/{id}");
         }
 
         protected async Task DeleteLeaveType(int id)

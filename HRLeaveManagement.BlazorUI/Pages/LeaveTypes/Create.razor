@@ -1,5 +1,6 @@
-@page "/leaveTypes/create"
+@page "/leave-types/create"
 @using HRLeaveManagement.BlazorUI.Components.LeaveTypes
+@attribute [Authorize(Roles = "Administrator")]
 
 <PageTitle>Create Leave Type</PageTitle>
 
