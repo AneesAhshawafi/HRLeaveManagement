@@ -29,6 +29,7 @@ builder.Services.AddCors(
     }
     );
 
+builder.Services.AddHttpContextAccessor();
 // Register Serilog
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig
     .WriteTo.Console()

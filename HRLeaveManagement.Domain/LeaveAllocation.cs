@@ -5,7 +5,7 @@ namespace ClassLibrary1HRLeaveManagement.Domain
     public class LeaveAllocation : BaseEntity
     {
 
-        public LeaveType LeaveType { get; set; } = new LeaveType();
+        public LeaveType LeaveType { get; set; }
         public int LeaveTypeId { get; set; }
         public string EmployeeId { get; set; } = String.Empty;
         public int NumberOfDays { get; set; }

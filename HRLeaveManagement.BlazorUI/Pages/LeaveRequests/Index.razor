@@ -1,0 +1,81 @@
+@page "/leave-requests/"
+@using HRLeaveManagement.BlazorUI.Models.LeaveRequests
+@inject NavigationManager NavigationManager
+
+<h3>Leave Requests</h3>
+<div class="m-2 d-flex justify-content-end">
+    <a href="/leave-requests/create" class="btn btn-success">Apply Leave Request</a>
+</div>
+
+@* 
+@if (!string.IsNullOrEmpty(Message))
+{
+    @if (Success)
+    {
+        <div class="alert alert-success">
+            @Message
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            @Message
+        </div>
+    }
+}
+
+@if (LeaveRequests is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Leave Type</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Date Requested</th>
+                <th>Approval Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var leaveRequest in LeaveRequests)
+            {
+                <tr>
+                    <td>@leaveRequest.Employee?.FirstName @leaveRequest.Employee?.LastName</td>
+                    <td>@leaveRequest.LeaveType?.Name</td>
+                    <td>@leaveRequest.StartDate.ToString("yyyy-MM-dd")</td>
+                    <td>@leaveRequest.EndDate.ToString("yyyy-MM-dd")</td>
+                    <td>@leaveRequest.DateRequested.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        @if (leaveRequest.Cancelled)
+                        {
+                            <span class="badge bg-secondary">Cancelled</span>
+                        }
+                        else if (leaveRequest.Approved == true)
+                        {
+                            <span class="badge bg-success">Approved</span>
+                        }
+                        else if (leaveRequest.Approved == false)
+                        {
+                            <span class="badge bg-danger">Rejected</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        }
+                    </td>
+                    <td>
+                        <button @onclick="@(() => DetailsLeaveRequest(leaveRequest.Id))" class="btn btn-info">Details</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+ *@
+

@@ -3,10 +3,12 @@ using HRLeaveManagement.Application.Contracts.Identity;
 using HRLeaveManagement.Application.Exceptions;
 using HRLeaveManagement.Application.Models.Identity;
 using HRLeaveManagement.Identity.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,11 +18,16 @@ namespace HRLeaveManagement.Identity.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
-        public UserService(UserManager<ApplicationUser> userManager, IMapper mapper)
+        private readonly IHttpContextAccessor _contextAccessor;
+        public UserService(UserManager<ApplicationUser> userManager, IMapper mapper, IHttpContextAccessor contextAccessor)
         {
             _userManager = userManager;
             _mapper = mapper;
+            _contextAccessor = contextAccessor;
         }
+
+        //public string UserId { get => _contextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier); }
+        public string UserId { get => _contextAccessor.HttpContext?.User?.FindFirstValue("uid"); }
 
         public async Task<Employee> GetEmployee(string userId)
         {
